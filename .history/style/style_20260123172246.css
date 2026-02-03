@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+      font-family: "Inter", sans-serif;
+}
+span,a{
+display: inline-block;
+}
+ul{
+    list-style: none;
+}
+img{
+    width: 100%;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar{
+    padding: 20px 30px;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    font-size: 28px;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 800;
+    cursor: pointer;
+}
+.nav-list ul{
+    display: flex;
+    gap: 25px;
+}
+.nav-list ul li {
+color: whitesmoke;
+font-size: 22px;
+font-weight: 400;
+/* transition: all 3s; */
+}
+.nav-list ul li:hover{
+    border-bottom: 1px solid black;
+}
+main{
+    background-color: #eee;
+    width: 100%;
+    min-height: 100vh;
+}
+main h1{
+    text-align: center;
+    font-weight: bold;
+    padding: 10px ;
+}

@@ -1,0 +1,71 @@
+# 🛒 Simple E-Commerce Web App (Vanilla JavaScript)
+
+A fully functional **E-Commerce Web Application** built using **Vanilla JavaScript**, **HTML**, and **CSS**, integrated with the **DummyJSON API**.  
+This project demonstrates real-world front-end concepts such as authentication handling, API integration, pagination, cart management, and state persistence using `localStorage`.
+
+---
+
+## 🚀 Live Demo
+> Add your live link here (GitHub Pages / Netlify / Vercel)
+
+---
+
+## 📌 Features
+
+### 🔐 Authentication
+- Login system using DummyJSON API
+- Stores user data and token in `localStorage`
+- Dynamic Navbar based on login state
+- Protected Cart page (only logged-in users can access it)
+- Logout functionality clears stored data and updates UI
+
+### 🏠 Home Page
+- Fetches products from API
+- Pagination (12 products per page)
+- Loading state while products are being fetched
+- Displays:
+  - Product Image
+  - Title
+  - Price
+  - Add to Cart button
+- Toast notification when product is added to cart
+
+### 🛒 Cart Page
+- Fetches cart data from API
+- Displays:
+  - Product Image
+  - Title
+  - Price
+  - Quantity
+  - Total Price per item
+- Increase / Decrease product quantity
+- Remove all products with confirmation modal
+- Updates cart using API
+- Displays total cart price dynamically
+
+### 📱 Responsive Design
+- Mobile-friendly layout
+- Clean and modern UI
+
+---
+
+## 🧠 Concepts Used
+
+- REST API Integration
+- Fetch API (GET, POST, PUT, DELETE)
+- Authentication Simulation (Token-based)
+- Pagination Logic (`limit` & `skip`)
+- Dynamic DOM Manipulation
+- Form Validation using Regular Expressions (Regex)
+- Error Handling & UI Feedback
+
+---
+
+## 🛠️ Technologies
+
+- **HTML5**
+- **CSS3**
+- **JavaScript (Vanilla JS)**
+- **DummyJSON API**
+
+
