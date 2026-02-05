@@ -12,6 +12,7 @@ const model = document.querySelector(".model")
 const modelMessage = document.querySelector(".model-message")
 const menuBar = document.querySelector(".menu")
 const mobileMenu = document.querySelector(".mobile-menu")
+let isOpened = false
 let productsData
 // let productsList = []
 // let productAddedToCart = JSON.parse(localStorage.getItem("productsList")) || []
@@ -204,7 +205,7 @@ logOutLink.addEventListener("click", (e) => {
     localStorage.removeItem("userData")
 })
 
-let isOpened = false
+
 menuBar.addEventListener("click",function(){
     if (isOpened == false) {
         mobileMenu.style.transform = "translateX(0)"

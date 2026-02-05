@@ -449,7 +449,6 @@ input:focus {
     .container {
         max-width: 960px;
         margin: auto;
-        background-color: aquamarine;
     }
 
 }
