@@ -1,4 +1,0 @@
-// * Varibles
-// * Varibles
-// * Varibles
-// * Varibles

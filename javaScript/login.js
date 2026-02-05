@@ -6,7 +6,8 @@ const model = document.querySelector(".model")
 const modelMessage = document.querySelector(".model-message")
 const nameRegex = /^[a-zA-Z]{3,15}$/
 const passwordRegex = /^[a-zA-Z]{3,15}$/
-
+const menuBar = document.querySelector(".menu")
+const mobileMenu = document.querySelector(".mobile-menu")
  
 
 // * Api
@@ -71,4 +72,15 @@ else{
 }
 
 
+})
+let isOpened = false
+menuBar.addEventListener("click",function(){
+    if (isOpened == false) {
+        mobileMenu.style.transform = "translateX(0)"
+        isOpened = true
+    }
+    else{
+        mobileMenu.style.transform = "translateX(-100%)"
+        isOpened = false
+    }
 })

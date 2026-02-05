@@ -14,6 +14,8 @@ const modelMessage = document.querySelector(".model-message")
 const deleteModelMessage = document.querySelector(".delete-model-message")
 const deletelModel = document.querySelector(".delete-model")
 const deletelModelContainer = document.querySelector(".delete-model-container")
+const menuBar = document.querySelector(".menu")
+const mobileMenu = document.querySelector(".mobile-menu")
 displayUserNavbar()
 // * function
 function displayUserNavbar() {
@@ -169,3 +171,15 @@ logOutLink.addEventListener("click", (e) => {
     localStorage.removeItem("userData")
 })
 
+
+let isOpened = false
+menuBar.addEventListener("click",function(){
+    if (isOpened == false) {
+        mobileMenu.style.transform = "translateX(0)"
+        isOpened = true
+    }
+    else{
+        mobileMenu.style.transform = "translateX(-100%)"
+        isOpened = false
+    }
+})

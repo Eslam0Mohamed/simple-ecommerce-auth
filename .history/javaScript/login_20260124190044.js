@@ -1,6 +1,0 @@
-// * Varibles
-
-
-// * Api
-// * Function
-// * Events

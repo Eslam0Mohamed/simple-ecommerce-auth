@@ -1,4 +1,0 @@
-// * Varibles
-// * Api
-// * Function
-// * Varibles

@@ -1,5 +1,0 @@
-// * Varibles
-
-
-// * Function 
-// * Events 
