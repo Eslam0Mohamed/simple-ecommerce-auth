@@ -12,6 +12,10 @@ const model = document.querySelector(".model")
 const modelMessage = document.querySelector(".model-message")
 const menuBar = document.querySelector(".menu")
 const mobileMenu = document.querySelector(".mobile-menu")
+const loadingEffect = document.querySelector(".loading-effect")
+const errorHandling = document.querySelector(".error-handling ")
+const tryAgain = document.querySelector(".try-again")
+const errorHandlingMsg = document.querySelector(".error-handling-msg")
 let isOpened = false
 let productsData
 // let productsList = []
@@ -19,9 +23,11 @@ let productsData
 // console.log(productAddedToCart);
 
 
+
 displayUserNavbar()
 //* Api 
 async function getProducts() {
+    loadingEffect.style.display = "flex"
 
     try {
         const response = await fetch("https://dummyjson.com/products?limit=" + 12 + "&skip=" + 0)
@@ -36,49 +42,50 @@ async function getProducts() {
         console.log(error);                       // display errors
         // & alert("Eror In Calling Api ") handle error message
     }
+    loadingEffect.style.display = "none"
 }
 async function addToCart(index) {
     let cartId = JSON.parse(localStorage.getItem("cartId"))
     let productList = JSON.parse(localStorage.getItem("cart")) || []
     let productAdded = productsData.products[index]
-    let productIsFound = productList.find((product)=>product.id == productAdded.id)
+    let productIsFound = productList.find((product) => product.id == productAdded.id)
     if (productIsFound) {
         productIsFound.quantity++
     }
-    else{
+    else {
         productList.push({ id: productAdded.id, quantity: 1 })
     }
     if (!cartId) {
-        console.log("case  we have not cart id" );
+        console.log("case  we have not cart id");
         try {
             const response = await fetch('https://dummyjson.com/carts/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                userId: userData.id,
-                products: productList
+                    userId: userData.id,
+                    products: productList
+                })
             })
-        })
-        console.log(response);
-        let data = await response.json()
-        console.log(data.products);
+            console.log(response);
+            let data = await response.json()
+            console.log(data.products);
 
-        localStorage.setItem("cart", JSON.stringify(data.products))
-        localStorage.setItem("cartId", JSON.stringify(data.id))
-        modelMessage.textContent = "Your Product Added To Cart"
-        model.style.transform = "translateX(0)"
-        setTimeout(() => {
-            model.style.transform = "translateX(120%)"
-        }, 2000)
-        
-    } catch (error) {
-        console.log(error);
-        alert("error from server")
+            localStorage.setItem("cart", JSON.stringify(data.products))
+            localStorage.setItem("cartId", JSON.stringify(data.id))
+            modelMessage.textContent = "Your Product Added To Cart"
+            model.style.transform = "translateX(0)"
+            setTimeout(() => {
+                model.style.transform = "translateX(120%)"
+            }, 2000)
+
+        } catch (error) {
+            console.log(error);
+            alert("error from server")
+        }
     }
-}
-else{
-    console.log("case 2 we have cart id" );
- try {
+    else {
+        console.log("case 2 we have cart id");
+        try {
             const response = await fetch(`https://dummyjson.com/carts/${1}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -86,30 +93,25 @@ else{
                     // userId:userData.id,
                     merge: true,
                     products: productList
+                })
             })
-        })
-        console.log(response);
-        let data = await response.json()
-        console.log(data);
-        localStorage.setItem("cart", JSON.stringify(data.products))
-        modelMessage.textContent = "Your Product Added To Cart"
-        model.style.transform = "translateX(0)"
-        setTimeout(() => {
-            model.style.transform = "translateX(120%)"
-        }, 2000)
-        
-    } 
-    catch (error) {
-        console.log(error);
-        alert("error from server")
+            console.log(response);
+            let data = await response.json()
+            console.log(data);
+            localStorage.setItem("cart", JSON.stringify(data.products))
+            modelMessage.textContent = "Your Product Added To Cart"
+            model.style.transform = "translateX(0)"
+            setTimeout(() => {
+                model.style.transform = "translateX(120%)"
+            }, 2000)
+
+        }
+        catch (error) {
+            console.log(error);
+            alert("error from server")
+        }
     }
 }
-}
-
-
-
-
-
 getProducts()
 
 // * Function
@@ -130,7 +132,6 @@ function displaydProducts(productsData) {
     }
     products.innerHTML = productsContainer
 }
-
 function displayUserNavbar() {
     if (userData) {
         console.log(userData);
@@ -143,38 +144,62 @@ function displayUserNavbar() {
     }
 }
 
+// & Complete From Here
+function showPopUpMessage(message){
+errorHandling.style.display = "flex";
+errorHandlingMsg.innerHTML = message;
+}
+function closePopUpMessage(){
+    errorHandling.style.display = "none";
+}
 // * Events 
 
 let limit = 12
 let skip = 0
 
 next.addEventListener("click", async () => {
-    skip = skip + limit
-    try {
-        const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
-        if (!response.ok) {
-            throw Error("Error From Server")
-        }
-        const { products } = await response.json()
-        console.log(skip);
-
-        displaydProducts(products)
-
-    } catch (error) {
-        console.log(error);
-        // alert(error)
+    previous.style.backgroundColor = "#fff"
+    previous.style.opacity = "1"
+    if (skip == 192) {
+        next.style.backgroundColor = "#ddd"
+        next.style.opacity = "0.8"
+        showPopUpMessage("Products Not Found Click Previous To see Products")
+        return 0
     }
-
+    else{
+        next.style.backgroundColor = "#fff"
+        next.style.opacity = "1"  
+        loadingEffect.style.display = "flex"
+        skip = skip + limit
+        try {
+            const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
+            if (!response.ok) {
+                throw Error("Error From Server")
+            }
+            const { products } = await response.json()
+            console.log(skip);
+            
+            displaydProducts(products)
+            
+        } catch (error) {
+            console.log(error);
+            // alert(error)
+        }
+        loadingEffect.style.display = "none"
+    }
 })
-
 previous.addEventListener("click", async () => {
     if (skip <= 0) {
         skip = 0
         console.log("No Products Found")
         console.log(skip);
+        previous.style.backgroundColor = "#ddd"
+        previous.style.opacity = "0.8"
+        showPopUpMessage("Products Not Found , Click Next to To see Products ")
         return 0
     }
     else {
+        loadingEffect.style.display = "flex"
         skip = skip - limit
         try {
             const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
@@ -190,10 +215,10 @@ previous.addEventListener("click", async () => {
             console.log(error);
             // alert(error)
         }
+        loadingEffect.style.display = "none"
     }
 
 })
-
 logOutLink.addEventListener("click", (e) => {
     e.preventDefault()
     modelMessage.textContent = "Now You Are Logged Out"
@@ -204,15 +229,16 @@ logOutLink.addEventListener("click", (e) => {
     }, 2000)
     localStorage.removeItem("userData")
 })
-
-
-menuBar.addEventListener("click",function(){
+menuBar.addEventListener("click", function () {
     if (isOpened == false) {
         mobileMenu.style.transform = "translateX(0)"
         isOpened = true
     }
-    else{
+    else {
         mobileMenu.style.transform = "translateX(-100%)"
         isOpened = false
     }
+})
+tryAgain.addEventListener("click",function(){
+  closePopUpMessage()  
 })

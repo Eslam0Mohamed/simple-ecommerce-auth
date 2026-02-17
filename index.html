@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-     crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,21 +37,21 @@
             </ul>
             <span class="menu"><i class="fa-solid fa-bars"></i></span>
         </div>
-                        <ul class="mobile-menu">
-                <li class="home-item" >
-                    <a href="index.html">Home</a>
-                </li>
-                <li class="cart-item" >
-                    <a href="cart.html">Cart</a>
-                </li>
-                <li class="login-item" >
-                    <a href="login.html">Log in</a>
-                </li>
-                <li class="logout-item">
-                    <a href="login.html">Log out</a>
-                </li>
-                <li class="welcome-message"></li>
-            </ul>
+        <ul class="mobile-menu">
+            <li class="home-item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="cart-item">
+                <a href="cart.html">Cart</a>
+            </li>
+            <li class="login-item">
+                <a href="login.html">Log in</a>
+            </li>
+            <li class="logout-item">
+                <a href="login.html">Log out</a>
+            </li>
+            <li class="welcome-message"></li>
+        </ul>
     </nav>
 
     <main>
@@ -64,12 +64,24 @@
             </div>
         </section>
         <div class="pagination">
-<button class="previous">Previous</button>
-<button class="next">Next</button>
+            <button class="previous">Previous</button>
+            <button class="next">Next</button>
         </div>
 
         <div class="model">
-        <p class="model-message"></p>
+            <p class="model-message"></p>
+        </div>
+        <div class="loading-effect">
+            <div>
+                <span class="loader"></span>
+            </div>
+            <p>Please wait we are loading data</p>
+        </div>
+        <div class="error-handling">
+            <div>
+                <p class="error-handling-msg">Please Try Again Later</p>
+                <button class="try-again">Try Again</button>
+            </div>
         </div>
     </main>
     <script src="javaScript/main.js"></script>
