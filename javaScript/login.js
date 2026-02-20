@@ -8,6 +8,7 @@ const nameRegex = /^[a-zA-Z]{3,15}$/
 const passwordRegex = /^[a-zA-Z]{3,15}$/
 const menuBar = document.querySelector(".menu")
 const mobileMenu = document.querySelector(".mobile-menu")
+const invalidCredentials = document.querySelector(".invalid-credentials")
  
 
 // * Api
@@ -23,25 +24,33 @@ async function logIn(){
         }),
         // credentials:"include"
     })    
-    if (!response.ok) {
-        throw Error("Error From Server")
+    console.log(response);
+     const userData =await response.json()
+     console.log(userData.message);
+       if (userData.message) {
+           invalidCredentials.style.display = "block"
+           invalidCredentials.textContent = userData.message
+           //    throw Error(userData.message)
+        }  
+        else{
+        invalidCredentials.style.display = "none"
     }
-   const userData =await response.json()
+     if (!response.ok) {
+        throw Error(userData.message)
+    }    
+    
+//    const userData =await response.json()   
     return userData;
     
  } catch (error) {
     console.log(error);
     
-    // alert(error) 
  }}
 }
 // * Function
-
 function validation(element,rege){
 if (rege.test(element.value)) {
-    console.log(element);
 element.nextElementSibling.style.display = "none"
-console.log("true");
 return true 
 }
 else{
@@ -50,14 +59,15 @@ return false
 }
 }
 // * Events
-
 loginButton.addEventListener("click",async function(event){
-
-
 event.preventDefault()
 const userData = await logIn()
-console.log(userData);
+
+console.log("user data from event" + userData);
+
+// console.log(userData)
 if (userData) {
+    
    model.style.transform="translateX(0)"
    modelMessage.textContent = "You Will Be Rdirected To Home"
    setTimeout(()=>{
@@ -68,7 +78,7 @@ if (userData) {
    localStorage.setItem("userData",JSON.stringify(userData))
 }
 else{
-    console.log("checkedmmmmmmmmmm");  
+    console.log("no user data");  
 }
 
 

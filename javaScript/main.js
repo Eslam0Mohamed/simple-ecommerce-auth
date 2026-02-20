@@ -40,7 +40,7 @@ async function getProducts() {
         displaydProducts(productsData.products)
     } catch (error) {
         console.log(error);                       // display errors
-        // & alert("Eror In Calling Api ") handle error message
+        showPopUpMessage(error)
     }
     loadingEffect.style.display = "none"
 }
@@ -75,12 +75,13 @@ async function addToCart(index) {
             modelMessage.textContent = "Your Product Added To Cart"
             model.style.transform = "translateX(0)"
             setTimeout(() => {
-                model.style.transform = "translateX(120%)"
+                model.style.transform = "translateX(130%)"
             }, 2000)
 
         } catch (error) {
             console.log(error);
-            alert("error from server")
+            // alert("error from server")
+            showPopUpMessage(error)
         }
     }
     else {
@@ -107,13 +108,11 @@ async function addToCart(index) {
 
         }
         catch (error) {
-            console.log(error);
-            alert("error from server")
+            showPopUpMessage("error from server")
         }
     }
 }
 getProducts()
-
 // * Function
 function displaydProducts(productsData) {
     let productsContainer = ""
@@ -145,11 +144,11 @@ function displayUserNavbar() {
 }
 
 // & Complete From Here
-function showPopUpMessage(message){
-errorHandling.style.display = "flex";
-errorHandlingMsg.innerHTML = message;
+function showPopUpMessage(message) {
+    errorHandling.style.display = "flex";
+    errorHandlingMsg.innerHTML = message;
 }
-function closePopUpMessage(){
+function closePopUpMessage() {
     errorHandling.style.display = "none";
 }
 // * Events 
@@ -166,9 +165,10 @@ next.addEventListener("click", async () => {
         showPopUpMessage("Products Not Found Click Previous To see Products")
         return 0
     }
-    else{
+
+    else {
         next.style.backgroundColor = "#fff"
-        next.style.opacity = "1"  
+        next.style.opacity = "1"
         loadingEffect.style.display = "flex"
         skip = skip + limit
         try {
@@ -178,27 +178,28 @@ next.addEventListener("click", async () => {
             }
             const { products } = await response.json()
             console.log(skip);
-            
             displaydProducts(products)
-            
+
         } catch (error) {
             console.log(error);
-            // alert(error)
+            showPopUpMessage(error)
         }
         loadingEffect.style.display = "none"
     }
 })
-previous.addEventListener("click", async () => {
+
+
+ previous.addEventListener("click", async () => {
     if (skip <= 0) {
         skip = 0
-        console.log("No Products Found")
-        console.log(skip);
         previous.style.backgroundColor = "#ddd"
         previous.style.opacity = "0.8"
         showPopUpMessage("Products Not Found , Click Next to To see Products ")
         return 0
     }
     else {
+        next.style.backgroundColor = "#fff"
+        next.style.opacity = "1"
         loadingEffect.style.display = "flex"
         skip = skip - limit
         try {
@@ -207,18 +208,16 @@ previous.addEventListener("click", async () => {
                 throw Error("Error From Server")
             }
             const { products } = await response.json()
-            console.log(skip);
-
             displaydProducts(products)
-
         } catch (error) {
             console.log(error);
-            // alert(error)
+            showPopUpMessage(error)
         }
         loadingEffect.style.display = "none"
+    
     }
-
 })
+
 logOutLink.addEventListener("click", (e) => {
     e.preventDefault()
     modelMessage.textContent = "Now You Are Logged Out"
@@ -239,6 +238,6 @@ menuBar.addEventListener("click", function () {
         isOpened = false
     }
 })
-tryAgain.addEventListener("click",function(){
-  closePopUpMessage()  
+tryAgain.addEventListener("click", function () {
+    closePopUpMessage()
 })
